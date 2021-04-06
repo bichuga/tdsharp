@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -110,14 +109,10 @@
                 long lastMessageId = 0;
                 while (oneDayAgo < oldestMessageFound)
                 {
-
                     TdApi.Messages messages = await _client.ExecuteAsync(
                                                                          new TdApi.GetChatHistory
                                                                          {
-                                                                             ChatId = chat.Id,
-                                                                             FromMessageId = lastMessageId,
-                                                                             OnlyLocal = false,
-                                                                             Limit = 100
+                                                                             ChatId = chat.Id, FromMessageId = lastMessageId, OnlyLocal = false, Limit = 100
                                                                          });
                     foreach (TdApi.Message message in messages.Messages_)
                     {
