@@ -102,22 +102,38 @@
                 await _client.ExecuteAsync(new TdApi.CheckAuthenticationCode { Code = code });
             }
 
+            long oneDayAgo = ((DateTimeOffset)DateTime.Now.AddDays(-1)).ToUnixTimeSeconds();
             await foreach (TdApi.Chat chat in GetChannels())
             {
                 Console.WriteLine(chat.Title);
-                TdApi.Messages messages = await _client.ExecuteAsync(new TdApi.GetChatHistory { ChatId = chat.Id, FromMessageId = chat.LastReadInboxMessageId, OnlyLocal = false, Limit = 25,  });
-                foreach (TdApi.Message message in messages.Messages_.Where(x => x.Content.DataType == "messageText").Take(3))
+                long oldestMessageFound = long.MaxValue;
+                long lastMessageId = 0;
+                while (oneDayAgo < oldestMessageFound)
                 {
-                    Console.WriteLine((message.Content as TdApi.MessageContent.MessageText).Text.Text);
+
+                    TdApi.Messages messages = await _client.ExecuteAsync(
+                                                                         new TdApi.GetChatHistory
+                                                                         {
+                                                                             ChatId = chat.Id,
+                                                                             FromMessageId = lastMessageId,
+                                                                             OnlyLocal = false,
+                                                                             Limit = 100
+                                                                         });
+                    foreach (TdApi.Message message in messages.Messages_)
+                    {
+                        if (message.Content.DataType == "messageText")
+                        {
+                            Console.WriteLine((message.Content as TdApi.MessageContent.MessageText).Text.Text);
+                        }
+
+                        oldestMessageFound = message.Date;
+                        lastMessageId = message.Id;
+                    }
                 }
 
-                await _client.ExecuteAsync(new TdApi.Update().)
-
-                break;
+                Console.WriteLine("Done. Press any key to exit");
+                Console.ReadLine();
             }
-
-            Console.WriteLine("Done. Press any key to exit");
-            Console.ReadLine();
         }
     }
 }
