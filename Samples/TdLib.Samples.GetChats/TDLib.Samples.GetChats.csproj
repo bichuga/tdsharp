@@ -6,7 +6,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="TDLib" Version="1.7.0" />
+    <PackageReference Include="tdlib.native" Version="1.6.0" GeneratePathProperty="true" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\TDLib\TDLib.csproj" />
   </ItemGroup>
+
+  <!--<Target Name="CopyTDLibNativeToOutDir" AfterTargets="Build">
+    <ItemGroup>
+      <TDNative Include="$(Pkgtdlib_native)\runtimes\win-x64\native\**" />
+    </ItemGroup>
+    <Copy SourceFiles="@(TDNative)" DestinationFolder="$(OutDir)" />
+  </Target>-->
 
 </Project>

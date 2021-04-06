@@ -7,7 +7,7 @@ namespace TdLib
         /// <summary>
         /// Base class for all objects
         /// </summary>
-        public abstract class Object
+        public class Object
         {
             [JsonProperty("@type")] public virtual string DataType { get; set; }
 

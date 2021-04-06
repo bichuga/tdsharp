@@ -63,9 +63,8 @@ namespace TdLib
             /// <summary>
             /// 
             /// </summary>
-            [JsonConverter(typeof(Converter))]
             [JsonProperty("description")]
-            public FormattedText Description { get; set; }
+            public string Description { get; set; }
 
             /// <summary>
             /// Image representing the content; may be null

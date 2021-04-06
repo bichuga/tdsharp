@@ -79,7 +79,7 @@ namespace TdLib
             /// </summary>
             [JsonConverter(typeof(Converter))]
             [JsonProperty("thumbnail")]
-            public Thumbnail Thumbnail { get; set; }
+            public PhotoSize Thumbnail { get; set; }
 
             /// <summary>
             /// File containing the animation

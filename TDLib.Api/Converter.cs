@@ -39,12 +39,12 @@ namespace TdLib
 
             if (jToken.Type == JTokenType.Object)
             {
-                var jObject = (JObject) jToken;
+                var jObject = (JObject)jToken;
 
                 var typeProp = jObject["@type"];
                 if (typeProp != null)
                 {
-                    var typeName = (string) typeProp;
+                    var typeName = (string)typeProp;
                     if (typeName != null && _mapper.TryGetValue(typeName, out var type))
                     {
                         return jObject.ToObject(type);
@@ -72,7 +72,7 @@ namespace TdLib
                 var token = JToken.ReadFrom(reader);
                 if (token.Type == JTokenType.Array)
                 {
-                    var arr = (JArray) token;
+                    var arr = (JArray)token;
                     var res = new long[arr.Count];
 
                     for (int i = 0; i < arr.Count; i++)

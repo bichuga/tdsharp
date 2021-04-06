@@ -51,7 +51,7 @@ namespace TdLib
             /// </summary>
             [JsonConverter(typeof(Converter))]
             [JsonProperty("photo")]
-            public ChatPhotoInfo Photo { get; set; }
+            public ChatPhoto Photo { get; set; }
 
             /// <summary>
             /// Actions that non-administrator chat members are allowed to take in the chat

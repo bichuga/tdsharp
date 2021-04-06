@@ -51,7 +51,7 @@ namespace TdLib
             /// </summary>
             [JsonConverter(typeof(Converter))]
             [JsonProperty("thumbnail")]
-            public Thumbnail Thumbnail { get; set; }
+            public PhotoSize Thumbnail { get; set; }
 
             /// <summary>
             /// Sticker set thumbnail's outline represented as a list of closed vector paths; may be empty. The coordinate system origin is in the upper-left corner
