@@ -15,9 +15,6 @@ namespace ShillCollectorTests
     [TestClass]
     public class ModelTests
     {
-        private const string SingleRecord =
-            @"{""AllShills"":[{""Address"":""https://foo.finance"",""Mentions"":3,""FirstMention"":""2021-04-05T03:11:00"",""LastMention"":""2021-04-06T03:12:00""}],""AllChannels"":[{""ChannelId"":1234,""Name"":""Luke's Hullabalooga"",""OldestChatProcessed"":12313232,""NewestChatProcessed"":998989898}]}";
-
         [TestMethod]
         public void Deserialize_HappyPath()
         {
@@ -31,13 +28,13 @@ namespace ShillCollectorTests
                                  Mentions = 3
                              });
             sc.AllChannels.Add(new Channel { ChannelId = 1234, Name = "Luke's Hullabalooga", OldestChatProcessed = 12313232, NewestChatProcessed = 998989898 });
-            JsonConvert.SerializeObject(sc).Should().Be(SingleRecord);
+            JsonConvert.SerializeObject(sc).Should().Be(Resources.SingleRecord);
         }
 
         [TestMethod]
         public void Serialize_HappyPath()
         {
-            var shills = JsonConvert.DeserializeObject<ShillCollection>(SingleRecord);
+            var shills = JsonConvert.DeserializeObject<ShillCollection>(Resources.SingleRecord);
             shills.AllShills.Should().HaveCount(1);
             shills.AllShills[0].FirstMention.Should().Be(new DateTime(2021, 4, 5, 3, 11, 0));
         }

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.Specialized;
     using System.Text.RegularExpressions;
 
     using ShillCollector.Model;
@@ -19,9 +20,9 @@
             this.stateLoader = stateLoader;
         }
 
-        public Dictionary<string, Shill> Sites { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+        public SortedDictionary<string, Shill> Sites { get; set; } = new(StringComparer.OrdinalIgnoreCase);
 
-        public Dictionary<int, Channel> Channels { get; set; } = new();
+        public SortedDictionary<int, Channel> Channels { get; set; } = new();
 
         public void Init()
         {

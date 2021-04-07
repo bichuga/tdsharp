@@ -12,15 +12,32 @@
 
 namespace ShillCollector
 {
-    using System;
+    using System.IO.Abstractions;
+
+    using Newtonsoft.Json;
 
     using TDLib.Samples.GetChats.Model;
 
     public class StateLoader : IStateLoader
     {
+        public const string ShillsFileName = "shills.json";
+
+        private readonly IFileSystem fileSystem;
+
+        public StateLoader(IFileSystem fileSystem)
+        {
+            this.fileSystem = fileSystem;
+        }
+
         public ShillCollection Load()
         {
-            throw new NotImplementedException();
+            ShillCollection sc = new ShillCollection();
+            if (this.fileSystem.File.Exists(ShillsFileName))
+            {
+                sc = JsonConvert.DeserializeObject<ShillCollection>(this.fileSystem.File.ReadAllText(ShillsFileName));
+            }
+
+            return sc;
         }
     }
 }

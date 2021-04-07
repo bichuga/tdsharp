@@ -12,7 +12,7 @@
     using TDLib.Samples.GetChats.Model;
 
     [TestClass]
-    public class SaveStateTests
+    public class StateManagerTests
     {
         [TestMethod]
         public void LoadState()
