@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.Specialized;
+    using System.Linq;
     using System.Text.RegularExpressions;
 
     using ShillCollector.Model;
@@ -20,9 +20,9 @@
             this.stateLoader = stateLoader;
         }
 
-        public SortedDictionary<string, Shill> Sites { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+        public SortedDictionary<string, Shill> Sites { get; } = new(StringComparer.OrdinalIgnoreCase);
 
-        public SortedDictionary<int, Channel> Channels { get; set; } = new();
+        public SortedDictionary<int, Channel> Channels { get; } = new();
 
         public void Init()
         {
@@ -44,6 +44,14 @@
             {
                 this.Channels[channel.ChannelId] = channel;
             }
+        }
+
+        public void Save()
+        {
+            var sc = new ShillCollection();
+            sc.AllChannels = this.Channels.Values.ToList();
+            sc.AllShills = this.Sites.Values.ToList();
+            this.stateLoader.Save(sc);
         }
     }
 }

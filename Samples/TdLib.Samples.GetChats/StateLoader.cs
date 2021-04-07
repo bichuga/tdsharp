@@ -39,5 +39,9 @@ namespace ShillCollector
 
             return sc;
         }
+
+        public void Save(ShillCollection sc)
+        {
+        }
     }
 }
